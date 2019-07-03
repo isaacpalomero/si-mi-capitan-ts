@@ -11,6 +11,7 @@
     "variable-name": false,
     "object-literal-sort-keys": false,
     "no-object-literal-type-assertion": false,
-    "max-line-length": false
+    "max-line-length": false,
+    "no-unused-expression": false
   }
 }

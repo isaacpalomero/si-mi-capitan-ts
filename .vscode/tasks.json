@@ -78,7 +78,7 @@
       "type": "shell",
       "command": [
         "npm run release;",
-        "ask deploy --profile \"YOUR-ASK-CLI-PROFILE\" --target \"lambda\""
+        "ask deploy --profile \"Linke-LABS\" --target \"lambda\""
       ],
       "problemMatcher": [],
       "group": {
@@ -94,7 +94,7 @@
         "rm -r remote/;",
         "mkdir ./remote;",
         "cd remote;",
-        "ask clone --skill-id $skillId --profile \"YOUR-ASK-CLI-PROFILE\""
+        "ask clone --skill-id $skillId --profile \"Linke-LABS\""
       ],
       "problemMatcher": [],
       "group": {
@@ -107,7 +107,7 @@
       "type": "shell",
       "command": [
         "npm run quick-release;",
-        "ask deploy --profile \"YOUR-ASK-CLI-PROFILE\" --target \"lambda\""
+        "ask deploy --profile \"Linke-LABS\" --target \"lambda\""
       ],
       "problemMatcher": [],
       "group": {
