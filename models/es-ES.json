@@ -17,13 +17,17 @@
                 },
                 {
                     "name": "HelloWorldIntent",
-                    "slots": [],
+                    "slots": [
+                        {
+                            "name": "example",
+                            "type": "example",
+                            "samples": [
+                                "{example}"
+                            ]
+                        }
+                    ],
                     "samples": [
-                        "hola",
-                        "como estás",
-                        "dí hola mundo",
-                        "di hola",
-                        "qué tal"
+                        "hola {example}"
                     ]
                 },
                 {
@@ -39,7 +43,51 @@
                     "samples": []
                 }
             ],
-            "types": []
-        }
-    }
+            "types": [
+                {
+                    "values": [
+                        {
+                            "name": {
+                                "value": "sin valor"
+                            }
+                        }
+                    ],
+                    "name": "example"
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "HelloWorldIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "example",
+                            "type": "example",
+                            "elicitationRequired": true,
+                            "confirmationRequired": false,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.617439732514.1530274916625"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.617439732514.1530274916625",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "example"
+                    }
+                ]
+            }
+        ]
+    },
+    "version": "9"
 }
