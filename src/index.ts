@@ -11,7 +11,7 @@ interface ISessionAttributes {
     id: number;
     reputacion: number;
     tesoro: number;
-    vuelt: number;
+    vueltas: number;
     [key: string]: any;
 }
 
@@ -23,9 +23,7 @@ class LaunchRequestHandler implements RequestHandler {
         const { attributesManager } = handlerInput;
         const sessionAttributes = attributesManager.getSessionAttributes() as ISessionAttributes;
         sessionAttributes.id = 1;
-        sessionAttributes.reputacion = 50;
-        sessionAttributes.tesoro = 50;
-        sessionAttributes.vueltas = 0;
+
         const module = getModule(1);
         const speechText = module.question;
         return handlerInput.responseBuilder
@@ -44,6 +42,8 @@ class YesIntentHandler implements RequestHandler {
     public handle(handlerInput: HandlerInput): Response {
         const { attributesManager } = handlerInput;
         const sessionAttributes = attributesManager.getSessionAttributes() as ISessionAttributes;
+        sessionAttributes.vueltas = sessionAttributes.vueltas !== undefined ? sessionAttributes.vueltas + 1 : 0;
+
         const moduleId = sessionAttributes.id;
         const module = getModule(moduleId);
         const nextModule = getNextModule(moduleId);
@@ -52,6 +52,7 @@ class YesIntentHandler implements RequestHandler {
         calculateGameVariables(sessionAttributes, module.yes.variable1, module.yes.variable2);
         if (sessionAttributes.reputacion === 100 || sessionAttributes.reputacion === 0 || sessionAttributes.tesoro === 100 || sessionAttributes.tesoro === 0) {
             speechText = "Tu reputación es de " + sessionAttributes.reputacion + " y tu tesoro de " + sessionAttributes.tesoro + ". Lamentablemente no has sobrevivido al viaje! Inténtalo otra vez! Hasta la próxima!";
+            resetSessionVars(sessionAttributes);
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .getResponse();
@@ -82,6 +83,8 @@ class NoIntentHandler implements RequestHandler {
     public handle(handlerInput: HandlerInput): Response {
         const { attributesManager } = handlerInput;
         const sessionAttributes = attributesManager.getSessionAttributes() as ISessionAttributes;
+        sessionAttributes.vueltas = sessionAttributes.vueltas !== undefined ? sessionAttributes.vueltas + 1 : 0;
+
         const moduleId = sessionAttributes.id;
         const module = getModule(moduleId);
         const nextModule = getNextModule(moduleId);
@@ -90,6 +93,7 @@ class NoIntentHandler implements RequestHandler {
         calculateGameVariables(sessionAttributes, module.no.variable1, module.no.variable2);
         if (sessionAttributes.reputacion === 100 || sessionAttributes.reputacion === 0 || sessionAttributes.tesoro === 100 || sessionAttributes.tesoro === 0) {
             speechText = "Tu reputación es de " + sessionAttributes.reputacion + " y tu tesoro de " + sessionAttributes.tesoro + ". Lamentablemente no has sobrevivido al viaje! Inténtalo otra vez! Hasta la próxima!";
+            resetSessionVars(sessionAttributes);
             return handlerInput.responseBuilder
                 .speak(speechText)
                 .getResponse();
@@ -230,6 +234,12 @@ function calculateGameVariables(sessionAttributes: ISessionAttributes, reputacio
     console.log(sessionAttributes);
 }
 
+function resetSessionVars(sessionAttributes: ISessionAttributes) {
+    sessionAttributes.vueltas = 0;
+    sessionAttributes.reputacion = 50;
+    sessionAttributes.tesoro = 50;
+}
+
 // This handler acts as the entry point for your skill, routing all request and response
 // payloads to the handlers above. Make sure any new handlers or interceptors you've
 // defined are included below. The order matters - they're processed top to bottom.
@@ -260,9 +270,12 @@ class LoadAttributesRequestInterceptor implements RequestInterceptor {
     public async process(handlerInput: HandlerInput) {
         const { attributesManager, requestEnvelope } = handlerInput;
         if (requestEnvelope.session && requestEnvelope.session.new) { // is this a new session? this check is not enough if using auto-delegate
-            const persistentAttributes = await attributesManager.getPersistentAttributes() || {};
+            const sessionAttributes = (await attributesManager.getPersistentAttributes()) as ISessionAttributes;
+            if (sessionAttributes.vueltas === undefined) {
+                resetSessionVars(sessionAttributes);
+            }
             // copy persistent attribute to session attributes
-            attributesManager.setSessionAttributes(persistentAttributes);
+            attributesManager.setSessionAttributes(sessionAttributes);
         }
     }
 }

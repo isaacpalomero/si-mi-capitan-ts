@@ -38,7 +38,7 @@
     "quick-release": "npm run build && rimraf lambda/custom/{lib}/**/*.* && rimraf lambda/custom/*.* && npm run copy:release",
     "build:release": "cd lambda/custom/ && npm install --production && rimraf \"package*.json\" && bestzip \"../release_$npm_package_version.zip\" * && cd ../..",
     "clean:release": "rimraf lambda/custom/",
-    "copy:release": "cpx \"out/build/**/*.js\" lambda/custom/ && cpx \"src/**/*.{sql}\" lambda/custom/ && cpx \"package.json\" lambda/custom/"
+    "copy:release": "cpx \"out/build/**/*.js\" lambda/custom/ && cpx \"src/**/*.{json,sql}\" lambda/custom/ && cpx \"package.json\" lambda/custom/"
   },
   "dependencies": {
     "ask-sdk": "^2.6.0",

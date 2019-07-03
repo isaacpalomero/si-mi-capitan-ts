@@ -4,35 +4,6 @@
       "skill_id": "",
       "was_cloned": false,
       "merge": {}
-    },
-    "Linke-LABS": {
-      "skill_id": "amzn1.ask.skill.f20a6108-f136-466c-8a4f-79846605010f",
-      "was_cloned": false,
-      "merge": {},
-      "resources": {
-        "manifest": {
-          "eTag": "f8b87c753908c8baf343a32ba86bb2ea"
-        },
-        "interactionModel": {
-          "es-ES": {
-            "eTag": "6968242cf3e78b34c43d7599e18bd738"
-          }
-        },
-        "lambda": [
-          {
-            "alexaUsage": [
-              "custom/default"
-            ],
-            "arn": "arn:aws:lambda:eu-west-1:916238543656:function:ask-custom-si-mi-capitan-default",
-            "awsRegion": "eu-west-1",
-            "codeUri": "lambda/custom",
-            "functionName": "ask-custom-si-mi-capitan-default",
-            "handler": "index.handler",
-            "revisionId": "35e9da35-422d-4d88-9a47-2fa071044c20",
-            "runtime": "nodejs8.10"
-          }
-        ]
-      }
     }
   }
 }
