@@ -1,31 +1,70 @@
 {
   "manifest": {
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "ask-custom-si-mi-capitan-default",
+          "sourceDir": "lambda/custom"
+        },
+        "interfaces": [
+          {
+            "type": "ALEXA_PRESENTATION_APL",
+            "supportedViewports": [
+              {
+                "mode": "HUB",
+                "shape": "ROUND",
+                "minWidth": 480,
+                "maxWidth": 480,
+                "minHeight": 480,
+                "maxHeight": 480
+              },
+              {
+                "mode": "HUB",
+                "shape": "RECTANGLE",
+                "minWidth": 1024,
+                "maxWidth": 1024,
+                "minHeight": 600,
+                "maxHeight": 600
+              },
+              {
+                "mode": "HUB",
+                "shape": "RECTANGLE",
+                "minWidth": 1280,
+                "maxWidth": 1280,
+                "minHeight": 800,
+                "maxHeight": 800
+              },
+              {
+                "mode": "TV",
+                "shape": "RECTANGLE",
+                "minWidth": 960,
+                "maxWidth": 960,
+                "minHeight": 540,
+                "maxHeight": 540
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "manifestVersion": "1.0",
     "publishingInformation": {
       "locales": {
         "es-ES": {
+          "name": "sí mi capitán",
           "summary": "Sample Short Description",
+          "description": "Sample Full Description",
           "examplePhrases": [
             "Alexa open hello world",
             "hello",
             "help"
-          ],
-          "name": "sí mi capitán",
-          "description": "Sample Full Description"
+          ]
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
+      "testingInstructions": "Sample Testing Instructions",
       "category": "KNOWLEDGE_AND_TRIVIA",
       "distributionCountries": []
-    },
-    "apis": {
-      "custom": {
-        "endpoint": {
-          "sourceDir": "lambda/custom",
-          "uri": "ask-custom-si-mi-capitan-default"
-        }
-      }
-    },
-    "manifestVersion": "1.0"
+    }
   }
 }
