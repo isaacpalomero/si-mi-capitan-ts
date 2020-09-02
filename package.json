@@ -52,7 +52,7 @@
     "@types/i18next-sprintf-postprocessor": "^0.0.29",
     "@types/jest": "^23.3.3",
     "@types/node": "^10.11.4",
-    "bestzip": "^2.1.2",
+    "bestzip": "^2.1.7",
     "coveralls": "^3.0.2",
     "cpx": "^1.5.0",
     "jest": "^23.6.0",
